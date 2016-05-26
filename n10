@@ -1,0 +1,52 @@
+#print selected node Class
+node = nuke.selectedNode()
+print node.Class()
+
+# get selected node names
+names = []
+for s in nuke.selectedNodes():
+    n = s['name'].value()
+    names.append(n)
+print names
+# or 
+names = [s['name'].value() for s in nuke.selectedNodes()]
+
+#To change selected nodes Values
+for i in nuke.selectedNodes() :
+    i['size'].setValue(20)
+    
+#Hide all nodes input, for active back use 0 on setValue
+for i in nuke.allNodes() :
+    i['hide_input'].setValue(1)
+    
+#For lock all connections
+nuke.Root().knob('lock_connections').setValue(1)
+
+#To set all read node start to custom frame.
+for a in nuke.allNodes():
+    if a.Class() == 'Read':
+        a['frame_mode'].setValue('1')
+        a['frame'].setValue('1')
+        
+#All read nodes missing frames to 'checkerboard'
+for s in nuke.allNodes('Read'):
+    s['on_error'].setValue('checkerboard')
+    
+#For temporarily disable heavy nodes like - Defocus, VectorBlur, Convolve, oflow, TVIscale. 
+classTypes = ['Defocus' , 'VectorBlur', 'Convolve', 'OFlow2', 'TVIscale', ]
+for s in nuke.allNodes():
+    if s.Class() in classTypes:
+        s['disable'].setValue(1)
+        print s['name'].value()
+        
+#expand selected groups
+for a in nuke.selectedNodes():
+    a.expand()
+#for all groups
+for s in nuke.allNodes('Group'):
+    s.expand()
+
+
+
+
+
