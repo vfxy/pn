@@ -60,7 +60,29 @@ newRotoNode = nuke.nodes.Roto()
 newRotoNode['xpos'].setValue(selXpos+200)
 newRotoNode['ypos'].setValue(selYpos)
 
+#Select all Grade nodes in script (substitute ‘Grade’ for any node class)
+nukescripts.clear_selection_recursive() #deselect all nodes
+for node in nuke.allNodes(): #go through all nodes
+if node.Class() == 'Grade': #if the node is a grade node...
+node.setSelected( True ) #...add it to the selection
+print 'Selected %d Grade nodes.' % len(nuke.selectedNodes()) #returns how many grade nodes are selected
+ 
+#Accessing Nodes
+nuke.selectedNode() #currently selected node
+nuke.toNode('Transform1') #node named Transform1
+nuke.thisNode() #node the python code is called from
 
+ 
+#Getting and Setting Values
+nuke.toNode('Transform1').knob('rotate').value() #get the value in the rotate box of the node named 'Transform1'
+nuke.toNode('Transform1').knob('translate').setValue(100,0) #put 100 in the translate x box of the node named 'Transform1'
+ 
+#Dependent and Dependencies (or what is connected to the node and what is the node connected to)
+print nuke.selectedNode().dependent() # print the currently selected node's dependents (what is connected to the node). Downstream
+print nuke.selectedNode().dependencies() # print the currently selected node's dependencies (what this node is connected TO). Upstream
+ 
+#And the most important…
+help(nuke.selectedNode) #returns help info on nuke.selectedNode usage
 
 
 
