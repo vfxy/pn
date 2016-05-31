@@ -46,6 +46,23 @@ for a in nuke.selectedNodes():
 for s in nuke.allNodes('Group'):
     s.expand()
 
+#replace string with something else
+node[0].name().replace("_ORIGINAL","_UnWarped")
+
+#disconect node main input
+node.setInput(0, None)
+
+#create new ROTO and place it in GUI by selected node
+selNode = nuke.selectedNode()
+selXpos = selNode.xpos()
+selYpos = selNode.ypos()
+newRotoNode = nuke.nodes.Roto()
+newRotoNode['xpos'].setValue(selXpos+200)
+newRotoNode['ypos'].setValue(selYpos)
+
+
+
+
 
 
 
