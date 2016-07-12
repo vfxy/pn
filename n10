@@ -2,6 +2,10 @@
 node = nuke.selectedNode()
 print node.Class()
 
+#two ways to create node
+nuke.createNode("Blur")
+nuke.nodes.Blur()
+
 # get selected node names
 names = []
 for s in nuke.selectedNodes():
