@@ -11,6 +11,14 @@ print names
 # or 
 names = [s['name'].value() for s in nuke.selectedNodes()]
 
+# print Name of the node UpStream connected to main input [0]
+node = nuke.selectedNode().dependencies()[0]
+print node['name'].value()
+# Print all connection node names
+node = nuke.selectedNode().dependencies()
+for item in node:
+    print item['name'].value()
+
 #To change selected nodes Values
 for i in nuke.selectedNodes() :
     i['size'].setValue(20)
@@ -84,6 +92,11 @@ print nuke.selectedNode().dependencies() # print the currently selected node's d
 #And the most important…
 help(nuke.selectedNode) #returns help info on nuke.selectedNode usage
 
+#If knob does not exist?!
+if node['translate'] : XXX
+#NameError: knob translate does not exist
+#the trick is using .knob() :
+if node.knob(knobname)
 
 
 
